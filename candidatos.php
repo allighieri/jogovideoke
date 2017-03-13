@@ -26,7 +26,7 @@
 		}
 	}
 	//guardo o resultado na variavel pra exibir os dados na pagina		
-	$resultado = $pdo->query("SELECT * FROM tb_candidatos WHERE situacao = 1 ORDER BY nome ASC LIMIT $inicio,$maximo");
+	$resultado = $pdo->query("SELECT * FROM tb_candidatos WHERE situacao = 1 ORDER BY idCandidatos ASC LIMIT $inicio,$maximo");
 
 
 	
@@ -146,7 +146,7 @@
 					}
 				}
 					
-				$pgs = $pgs - 1;
+				$pgs = $pgs;
 				if($next <= $pgs){ ?>
 					<li><a href="<?php echo $_SERVER['PHP_SELF'].'?pagina='.$next ?>" title="Próximo registro"> &rsaquo; </a></li>
 				<?php

@@ -42,10 +42,10 @@
 		
 		<?php
 			$grupoA  = $pdo->query('SELECT g.idGrupos, g.idCandidatos, g.grupo, c.idCandidatos, c.nome, c.imagem FROM 
-										tb_grupos g INNER JOIN tb_candidatos c ON g.idCandidatos = c.idCandidatos WHERE grupo = \'A\' ORDER BY c.nome ASC LIMIT 10') OR die(implode('', $pdo->errorInfo()));
+										tb_grupos g INNER JOIN tb_candidatos c ON g.idCandidatos = c.idCandidatos WHERE grupo = \'A\' ORDER BY c.nome ASC') OR die(implode('', $pdo->errorInfo()));
 			
 			$grupoB  = $pdo->query('SELECT g.idGrupos, g.idCandidatos, g.grupo, c.idCandidatos, c.nome, c.imagem FROM 
-										tb_grupos g INNER JOIN tb_candidatos c ON g.idCandidatos = c.idCandidatos WHERE grupo = \'B\' ORDER BY c.nome ASC LIMIT 10') OR die(implode('', $pdo->errorInfo()));
+										tb_grupos g INNER JOIN tb_candidatos c ON g.idCandidatos = c.idCandidatos WHERE grupo = \'B\' ORDER BY c.nome ASC') OR die(implode('', $pdo->errorInfo()));
 		?>
 		
 		<section id="grupos">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php include 'conn.php'; ?>
+<?php include_once 'conn.php'; ?>
 
 <?php
 	/* Informações dos candidatos e músicas */
@@ -44,7 +44,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>1º OCTOBERFEST VIDEOKÊ 2016</title>
+    <title>QUEM SERÁ O VENCEDOR?</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -68,7 +68,7 @@
 	
 
 		<header>
-			<h1>1º OCTOBERFEST VIDEOKÊ 2016</h1>
+			<h1>QUEM SERÁ O VENCEDOR?</h1>
 			<h2>Segunda Fase</h2>
 			<p>Os classificados da Primeira Fase são separados em duplas e se enfretam pela classificação para a final. O candidato com a maior pontuação na dupla avança para a grande final.</p>
 		</header>

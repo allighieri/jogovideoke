@@ -33,7 +33,6 @@
 
 <div class="container">
 	
-	<?php include_once'misturargrupos.php'; ?>
 	
 	
 	<!-- Tabela de preencher grupo A e B -->
@@ -41,24 +40,66 @@
 	
 	
 	<?php
-			$grupoA  = $pdo->query("SELECT 
-										p.idPontuacao, 
-										p.idCandidatos, 
-										p.pontos, 
-										c.idCandidatos, 
-										c.nome,
-										round(AVG( p.pontos),2) as media 
-										FROM tb_pontuacao p 
-										INNER JOIN tb_candidatos c 
-										on p.idCandidatos = c.idCandidatos 
+	$strCount = $pdo->query("SELECT COUNT(*) AS 'grupo' FROM tb_grupos WHERE grupo = 'A'");
+	//iniciamos uma var que será usada para armazenar a qtde de registros da tabela  
+	$total = 0;
+	if(count($strCount)){
+		foreach ($strCount as $row) {
+			$total = $row["grupo"] / 2;
+		}
+	}
+			
+
+	
+			$geraduplasA  = $pdo->query("SELECT p.idPontuacao, c.idCandidatos, c.nome, g.idGrupos, g.grupo, round(AVG( p.pontos),2) as media 
+										FROM tb_pontuacao p INNER JOIN tb_candidatos c INNER JOIN tb_grupos g
+										on p.idCandidatos = c.idCandidatos AND c.idCandidatos = g.idCandidatos
+										WHERE p.pontos != 0 AND g.grupo = 'A'
 										Group by c.idCandidatos
-										Order by media Desc
+										Order by g.grupo, media Desc
+										Limit $total
 									") OR die(implode('', $pdo->errorInfo()));
-			$totalGrupoA = $grupoA->rowCount();	
-			echo "Candidatos do Grupo A: <br />";		
-			while ($row = $grupoA->fetch(PDO::FETCH_ASSOC)) {
-				echo $row['nome']." - ". $row['media'] ." pontos <br />";
+									
+			$totalGeraDuplasA = $geraduplasA->rowCount();	
+			
+			$geraduplasB  = $pdo->query("SELECT p.idPontuacao, c.idCandidatos, c.nome, g.idGrupos, g.grupo, round(AVG( p.pontos),2) as media 
+										FROM tb_pontuacao p INNER JOIN tb_candidatos c INNER JOIN tb_grupos g
+										on p.idCandidatos = c.idCandidatos AND c.idCandidatos = g.idCandidatos
+										WHERE p.pontos != 0 AND g.grupo = 'B'
+										Group by c.idCandidatos
+										Order by g.grupo, media Desc
+										Limit $total
+									") OR die(implode('', $pdo->errorInfo()));
+									
+			$totalGeraDuplasB = $geraduplasB->rowCount();			
+			
+			while ($row = $geraduplasA->fetch(PDO::FETCH_ASSOC)) {
+					$idFases 		= 2;
+					$idCandidatos 	= $row['idCandidatos'];
+					$grupo			= $row['grupo'];
+					
+					$sql = 'INSERT INTO tb_duplas (idFases, idCandidatos, grupo) VALUES (?,?,?)';
+					$stm = $pdo->prepare($sql);
+					$stm->bindParam(1, $idFases);
+					$stm->bindParam(2, $idCandidatos);
+					$stm->bindParam(3, $grupo);
+					$res = $stm->execute();	
 			}
+			
+					while ($row = $geraduplasB->fetch(PDO::FETCH_ASSOC)) {
+							$idFases 		= 2;
+							$idCandidatos 	= $row['idCandidatos'];
+							$grupo			= $row['grupo'];
+							
+							$sql = 'INSERT INTO tb_duplas (idFases, idCandidatos, grupo) VALUES (?,?,?)';
+							$stm = $pdo->prepare($sql);
+							$stm->bindParam(1, $idFases);
+							$stm->bindParam(2, $idCandidatos);
+							$stm->bindParam(3, $grupo);
+							$res = $stm->execute();	
+							
+					}
+			
 			
 	?>
 	
