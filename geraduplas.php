@@ -49,26 +49,27 @@
 		}
 	}
 			
+		
 
 	
-			$geraduplasA  = $pdo->query("SELECT p.idPontuacao, c.idCandidatos, c.nome, g.idGrupos, g.grupo, round(AVG( p.pontos),2) as media 
+			$geraduplasA  = $pdo->query("SELECT p.idPontuacao, p.idFases, c.idCandidatos, c.nome, g.idGrupos, g.grupo, round(AVG( p.pontos),2) as media 
 										FROM tb_pontuacao p INNER JOIN tb_candidatos c INNER JOIN tb_grupos g
 										on p.idCandidatos = c.idCandidatos AND c.idCandidatos = g.idCandidatos
-										WHERE p.pontos != 0 AND g.grupo = 'A'
+										WHERE p.pontos != 0 AND g.grupo = 'A' AND p.idFases = 1
 										Group by c.idCandidatos
 										Order by g.grupo, media Desc
-										Limit $total
+										Limit $total;
 									") OR die(implode('', $pdo->errorInfo()));
 									
 			$totalGeraDuplasA = $geraduplasA->rowCount();	
 			
-			$geraduplasB  = $pdo->query("SELECT p.idPontuacao, c.idCandidatos, c.nome, g.idGrupos, g.grupo, round(AVG( p.pontos),2) as media 
+			$geraduplasB  = $pdo->query("SELECT p.idPontuacao, p.idFases, c.idCandidatos, c.nome, g.idGrupos, g.grupo, round(AVG( p.pontos),2) as media 
 										FROM tb_pontuacao p INNER JOIN tb_candidatos c INNER JOIN tb_grupos g
 										on p.idCandidatos = c.idCandidatos AND c.idCandidatos = g.idCandidatos
-										WHERE p.pontos != 0 AND g.grupo = 'B'
+										WHERE p.pontos != 0 AND g.grupo = 'B' AND idFases = 1
 										Group by c.idCandidatos
 										Order by g.grupo, media Desc
-										Limit $total
+										Limit $total;
 									") OR die(implode('', $pdo->errorInfo()));
 									
 			$totalGeraDuplasB = $geraduplasB->rowCount();			
@@ -78,7 +79,7 @@
 					$idCandidatos 	= $row['idCandidatos'];
 					$grupo			= $row['grupo'];
 					
-					$sql = 'INSERT INTO tb_duplas (idFases, idCandidatos, grupo) VALUES (?,?,?)';
+					$sql = 'INSERT INTO tb_forma_duplas (idFases, idCandidatos, grupo) VALUES (?,?,?)';
 					$stm = $pdo->prepare($sql);
 					$stm->bindParam(1, $idFases);
 					$stm->bindParam(2, $idCandidatos);
@@ -91,7 +92,7 @@
 							$idCandidatos 	= $row['idCandidatos'];
 							$grupo			= $row['grupo'];
 							
-							$sql = 'INSERT INTO tb_duplas (idFases, idCandidatos, grupo) VALUES (?,?,?)';
+							$sql = 'INSERT INTO tb_forma_duplas (idFases, idCandidatos, grupo) VALUES (?,?,?)';
 							$stm = $pdo->prepare($sql);
 							$stm->bindParam(1, $idFases);
 							$stm->bindParam(2, $idCandidatos);

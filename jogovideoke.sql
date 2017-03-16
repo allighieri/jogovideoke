@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 13-Mar-2017 às 02:03
+-- Generation Time: 16-Mar-2017 às 05:08
 -- Versão do servidor: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -57,12 +57,12 @@ INSERT INTO `tb_candidatos` (`idCandidatos`, `nome`, `idade`, `imagem`, `data`, 
 (14, 'Aline Pereira', 26, 'img-001.jpg', '2017-03-12 23:57:25', 1),
 (15, 'Romildo Rodrigues', 42, 'img-002.jpg', '2017-03-12 23:57:25', 1),
 (16, 'Kilter Sena', 32, 'img-003.jpg', '2017-03-12 23:57:25', 1),
-(17, 'Saulo Tinoco', 31, 'img-002.jpg', '2017-03-12 23:57:25', 1),
-(18, 'Silas Tinoco', 28, 'img-001.jpg', '2017-03-12 23:57:25', 1),
-(19, 'David Luccas', 20, 'img-004.jpg', '2017-03-12 23:57:25', 1),
-(20, 'George Luccas', 18, 'img-003.jpg', '2017-03-12 23:57:25', 1),
-(21, 'Mara Monteiro', 46, 'img-002.jpg', '2017-03-12 23:59:34', 1),
-(22, 'João Corino', 56, 'img-004.jpg', '2017-03-12 23:59:34', 1);
+(17, 'Saulo Tinoco', 31, 'img-002.jpg', '2017-03-15 02:13:26', 1),
+(18, 'Silas Tinoco', 28, 'img-001.jpg', '2017-03-15 02:13:26', 1),
+(19, 'David Luccas', 20, 'img-004.jpg', '2017-03-15 02:13:27', 1),
+(20, 'George Luccas', 18, 'img-003.jpg', '2017-03-15 02:13:27', 1),
+(21, 'Mara Monteiro', 46, 'img-002.jpg', '2017-03-14 23:27:51', 0),
+(22, 'João Corino', 56, 'img-004.jpg', '2017-03-14 23:27:51', 0);
 
 -- --------------------------------------------------------
 
@@ -98,10 +98,27 @@ CREATE TABLE IF NOT EXISTS `tb_duplas` (
   `idDuplas` int(11) NOT NULL AUTO_INCREMENT,
   `idFases` int(11) NOT NULL,
   `idCandidatos` int(11) NOT NULL,
+  `grupo` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`idDuplas`),
   KEY `idFases` (`idFases`,`idCandidatos`),
   KEY `idCandidatos` (`idCandidatos`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
+
+--
+-- Extraindo dados da tabela `tb_duplas`
+--
+
+INSERT INTO `tb_duplas` (`idDuplas`, `idFases`, `idCandidatos`, `grupo`) VALUES
+(1, 2, 1, 'A'),
+(2, 2, 17, 'B'),
+(3, 2, 4, 'A'),
+(4, 2, 13, 'B'),
+(5, 2, 2, 'A'),
+(6, 2, 11, 'B'),
+(7, 2, 18, 'A'),
+(8, 2, 5, 'B'),
+(9, 2, 14, 'A'),
+(10, 2, 7, 'B');
 
 -- --------------------------------------------------------
 
@@ -142,6 +159,38 @@ CREATE TABLE IF NOT EXISTS `tb_final` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `tb_forma_duplas`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_forma_duplas` (
+  `idFormaDuplas` int(11) NOT NULL AUTO_INCREMENT,
+  `idFases` int(1) NOT NULL,
+  `idCandidatos` int(1) NOT NULL,
+  `grupo` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`idFormaDuplas`),
+  KEY `idFases` (`idFases`),
+  KEY `idCandidatos` (`idCandidatos`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
+
+--
+-- Extraindo dados da tabela `tb_forma_duplas`
+--
+
+INSERT INTO `tb_forma_duplas` (`idFormaDuplas`, `idFases`, `idCandidatos`, `grupo`) VALUES
+(1, 2, 1, 'A'),
+(2, 2, 4, 'A'),
+(3, 2, 2, 'A'),
+(4, 2, 18, 'A'),
+(5, 2, 14, 'A'),
+(6, 2, 7, 'B'),
+(7, 2, 5, 'B'),
+(8, 2, 11, 'B'),
+(9, 2, 13, 'B'),
+(10, 2, 17, 'B');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `tb_grupos`
 --
 
@@ -151,35 +200,33 @@ CREATE TABLE IF NOT EXISTS `tb_grupos` (
   `grupo` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`idGrupos`),
   KEY `idCandidatos` (`idCandidatos`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=21 ;
 
 --
 -- Extraindo dados da tabela `tb_grupos`
 --
 
 INSERT INTO `tb_grupos` (`idGrupos`, `idCandidatos`, `grupo`) VALUES
-(1, 7, 'A'),
-(2, 10, 'A'),
-(3, 14, 'A'),
-(4, 12, 'A'),
-(5, 13, 'A'),
-(6, 17, 'A'),
+(1, 14, 'A'),
+(2, 9, 'A'),
+(3, 8, 'A'),
+(4, 18, 'A'),
+(5, 16, 'A'),
+(6, 19, 'A'),
 (7, 3, 'A'),
-(8, 21, 'A'),
-(9, 8, 'A'),
-(10, 15, 'A'),
-(11, 5, 'A'),
-(12, 22, 'B'),
-(13, 16, 'B'),
-(14, 9, 'B'),
-(15, 20, 'B'),
-(16, 19, 'B'),
-(17, 1, 'B'),
-(18, 11, 'B'),
-(19, 2, 'B'),
-(20, 18, 'B'),
-(21, 6, 'B'),
-(22, 4, 'B');
+(8, 4, 'A'),
+(9, 2, 'A'),
+(10, 1, 'A'),
+(11, 7, 'B'),
+(12, 20, 'B'),
+(13, 17, 'B'),
+(14, 11, 'B'),
+(15, 10, 'B'),
+(16, 5, 'B'),
+(17, 12, 'B'),
+(18, 13, 'B'),
+(19, 15, 'B'),
+(20, 6, 'B');
 
 -- --------------------------------------------------------
 
@@ -1227,35 +1274,33 @@ CREATE TABLE IF NOT EXISTS `tb_mistura` (
   `idCandidatos` int(11) NOT NULL,
   PRIMARY KEY (`idMistura`),
   KEY `idCandidatos` (`idCandidatos`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=21 ;
 
 --
 -- Extraindo dados da tabela `tb_mistura`
 --
 
 INSERT INTO `tb_mistura` (`idMistura`, `idCandidatos`) VALUES
-(17, 1),
-(19, 2),
+(10, 1),
+(9, 2),
 (7, 3),
-(22, 4),
-(11, 5),
-(21, 6),
-(1, 7),
-(9, 8),
-(14, 9),
-(2, 10),
-(18, 11),
-(4, 12),
-(5, 13),
-(3, 14),
-(10, 15),
-(13, 16),
-(6, 17),
-(20, 18),
-(16, 19),
-(15, 20),
-(8, 21),
-(12, 22);
+(8, 4),
+(16, 5),
+(20, 6),
+(11, 7),
+(3, 8),
+(2, 9),
+(15, 10),
+(14, 11),
+(17, 12),
+(18, 13),
+(1, 14),
+(19, 15),
+(5, 16),
+(13, 17),
+(4, 18),
+(6, 19),
+(12, 20);
 
 -- --------------------------------------------------------
 
@@ -1374,7 +1419,7 @@ CREATE TABLE IF NOT EXISTS `tb_pontuacao` (
   KEY `idCandidatos` (`idCandidatos`),
   KEY `idFases` (`idFases`),
   KEY `idCriterios` (`idCriterios`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=101 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=151 ;
 
 --
 -- Extraindo dados da tabela `tb_pontuacao`
@@ -1396,7 +1441,7 @@ INSERT INTO `tb_pontuacao` (`idPontuacao`, `idCandidatos`, `idFases`, `idCriteri
 (13, 3, 1, 3, 7),
 (14, 3, 1, 4, 5),
 (15, 3, 1, 5, 6.8),
-(16, 4, 2, 1, 9),
+(16, 4, 1, 1, 9),
 (17, 4, 1, 2, 10),
 (18, 4, 1, 3, 9),
 (19, 4, 1, 4, 9),
@@ -1480,7 +1525,57 @@ INSERT INTO `tb_pontuacao` (`idPontuacao`, `idCandidatos`, `idFases`, `idCriteri
 (97, 20, 1, 2, 6),
 (98, 20, 1, 3, 9),
 (99, 20, 1, 4, 8),
-(100, 20, 1, 5, 7);
+(100, 20, 1, 5, 7),
+(101, 1, 2, 1, 10),
+(102, 1, 2, 2, 10),
+(103, 1, 2, 3, 10),
+(104, 1, 2, 5, 10),
+(105, 7, 2, 1, 10),
+(106, 7, 2, 2, 8),
+(107, 7, 2, 3, 9),
+(108, 7, 2, 4, 5),
+(109, 7, 2, 5, 10),
+(110, 4, 2, 1, 5),
+(111, 4, 2, 2, 8),
+(112, 4, 2, 3, 5),
+(113, 4, 2, 4, 6),
+(114, 4, 2, 5, 7),
+(115, 5, 2, 2, 9.5),
+(116, 5, 2, 2, 10),
+(117, 5, 2, 3, 10),
+(118, 5, 2, 4, 10),
+(119, 5, 2, 5, 10),
+(120, 2, 2, 1, 7),
+(121, 2, 2, 2, 8.5),
+(122, 2, 2, 3, 7.5),
+(123, 2, 2, 4, 8),
+(124, 2, 2, 5, 7.5),
+(125, 11, 2, 1, 8.3),
+(126, 11, 2, 2, 8),
+(127, 11, 2, 3, 5),
+(128, 11, 2, 4, 10),
+(129, 11, 2, 5, 6),
+(130, 18, 2, 1, 5.5),
+(131, 18, 2, 2, 8),
+(132, 18, 2, 3, 7),
+(133, 18, 2, 4, 9.8),
+(134, 18, 2, 5, 7),
+(135, 13, 2, 1, 8.8),
+(136, 13, 2, 2, 8),
+(137, 13, 2, 3, 4),
+(138, 13, 2, 4, 7.3),
+(139, 13, 2, 5, 9),
+(140, 14, 2, 1, 7.7),
+(141, 14, 2, 2, 8),
+(142, 14, 2, 3, 10),
+(143, 14, 2, 4, 6.9),
+(144, 14, 2, 5, 5),
+(145, 17, 2, 1, 4.5),
+(146, 17, 2, 2, 8),
+(147, 17, 2, 3, 8),
+(148, 17, 2, 4, 7),
+(149, 17, 2, 5, 10),
+(150, 1, 2, 4, 10);
 
 --
 -- Constraints for dumped tables
@@ -1499,6 +1594,13 @@ ALTER TABLE `tb_duplas`
 ALTER TABLE `tb_final`
   ADD CONSTRAINT `tb_final_ibfk_1` FOREIGN KEY (`idFases`) REFERENCES `tb_fases` (`idFases`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `tb_final_ibfk_2` FOREIGN KEY (`idCandidatos`) REFERENCES `tb_candidatos` (`idCandidatos`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Limitadores para a tabela `tb_forma_duplas`
+--
+ALTER TABLE `tb_forma_duplas`
+  ADD CONSTRAINT `tb_forma_duplas_ibfk_1` FOREIGN KEY (`idFases`) REFERENCES `tb_fases` (`idFases`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_forma_duplas_ibfk_2` FOREIGN KEY (`idCandidatos`) REFERENCES `tb_candidatos` (`idCandidatos`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `tb_grupos`
