@@ -39,7 +39,7 @@
 			</div>		
 			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
 				<h4 style="text-transform:uppercase; font-size:30px;"><?php echo $linhaCandidatoMusica['nome'] ?></h4>
-					<p style="font-size:15px;"><?php echo $linhaCandidatoMusica['idade'] ?> anos | Bloco <?php echo $linhaCandidatoMusica['bloco'] ?> | Nº <?php echo ($linhaCandidatoMusica['idCandidatos'] < 10) ? "00".$linhaCandidatoMusica['idCandidatos'] : "0".$linhaCandidatoMusica['idCandidatos']; ?></p>
+					<p style="font-size:15px;"><?php echo $linhaCandidatoMusica['idade'] ?> anos | Nº <?php echo ($linhaCandidatoMusica['idCandidatos'] < 10) ? "00".$linhaCandidatoMusica['idCandidatos'] : "0".$linhaCandidatoMusica['idCandidatos']; ?></p>
 
 	<?php
 	

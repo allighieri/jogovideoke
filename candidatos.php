@@ -2,10 +2,6 @@
 <?php include 'conn.php'; ?>
 
 <?php
-	/* Informações dos candidatos e músicas */
-	//$candidatos  = $pdo->query('SELECT * FROM tb_candidatos c WHERE situacao = 1') OR die(implode('', $pdo->errorInfo()));
-	//$totalCandidatos = $candidatos->rowCount();
-
 	/*Quantidade de registro (candidato)por página*/
 	$maximo = 2;
 	//pega o valor da pagina atual
