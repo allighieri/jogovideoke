@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 16-Mar-2017 às 05:08
+-- Generation Time: 17-Mar-2017 às 05:46
 -- Versão do servidor: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -151,10 +151,22 @@ CREATE TABLE IF NOT EXISTS `tb_final` (
   `idFinal` int(11) NOT NULL AUTO_INCREMENT,
   `idFases` int(11) NOT NULL,
   `idCandidatos` int(11) NOT NULL,
+  `grupo` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`idFinal`),
   KEY `idFases` (`idFases`),
   KEY `idCandidatos` (`idCandidatos`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+
+--
+-- Extraindo dados da tabela `tb_final`
+--
+
+INSERT INTO `tb_final` (`idFinal`, `idFases`, `idCandidatos`, `grupo`) VALUES
+(1, 3, 1, 'A'),
+(2, 3, 13, 'B'),
+(3, 3, 2, 'A'),
+(4, 3, 18, 'A'),
+(5, 3, 7, 'B');
 
 -- --------------------------------------------------------
 
@@ -1419,7 +1431,7 @@ CREATE TABLE IF NOT EXISTS `tb_pontuacao` (
   KEY `idCandidatos` (`idCandidatos`),
   KEY `idFases` (`idFases`),
   KEY `idCriterios` (`idCriterios`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=151 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=224 ;
 
 --
 -- Extraindo dados da tabela `tb_pontuacao`
@@ -1536,15 +1548,15 @@ INSERT INTO `tb_pontuacao` (`idPontuacao`, `idCandidatos`, `idFases`, `idCriteri
 (108, 7, 2, 4, 5),
 (109, 7, 2, 5, 10),
 (110, 4, 2, 1, 5),
-(111, 4, 2, 2, 8),
+(111, 4, 2, 2, 5),
 (112, 4, 2, 3, 5),
-(113, 4, 2, 4, 6),
-(114, 4, 2, 5, 7),
+(113, 4, 2, 4, 5),
+(114, 4, 2, 5, 5),
 (115, 5, 2, 2, 9.5),
-(116, 5, 2, 2, 10),
+(116, 5, 2, 2, 3),
 (117, 5, 2, 3, 10),
-(118, 5, 2, 4, 10),
-(119, 5, 2, 5, 10),
+(118, 5, 2, 4, 2),
+(119, 5, 2, 5, 5),
 (120, 2, 2, 1, 7),
 (121, 2, 2, 2, 8.5),
 (122, 2, 2, 3, 7.5),
@@ -1575,7 +1587,55 @@ INSERT INTO `tb_pontuacao` (`idPontuacao`, `idCandidatos`, `idFases`, `idCriteri
 (147, 17, 2, 3, 8),
 (148, 17, 2, 4, 7),
 (149, 17, 2, 5, 10),
-(150, 1, 2, 4, 10);
+(150, 1, 2, 4, 10),
+(199, 1, 3, 1, 10),
+(200, 1, 3, 2, 10),
+(201, 1, 3, 3, 0),
+(202, 1, 3, 4, 10),
+(203, 13, 3, 1, 10),
+(204, 13, 3, 2, 10),
+(205, 13, 3, 3, 8),
+(206, 13, 3, 4, 5),
+(207, 13, 3, 5, 7),
+(208, 2, 3, 1, 9),
+(209, 2, 3, 2, 9),
+(210, 2, 3, 3, 8),
+(211, 2, 3, 4, 10),
+(212, 2, 3, 5, 9),
+(213, 18, 3, 1, 10),
+(214, 18, 3, 2, 5),
+(215, 18, 3, 3, 6),
+(216, 18, 3, 4, 7.5),
+(217, 18, 3, 5, 6.6),
+(218, 7, 3, 1, 10),
+(219, 7, 3, 2, 8),
+(220, 7, 3, 3, 4.5),
+(221, 7, 3, 4, 5.9),
+(222, 7, 3, 5, 6),
+(223, 1, 3, 5, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_vencedores`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_vencedores` (
+  `idVencedores` int(11) NOT NULL AUTO_INCREMENT,
+  `idCandidatos` int(11) NOT NULL,
+  `grupo` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`idVencedores`),
+  KEY `idCandidatos` (`idCandidatos`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+
+--
+-- Extraindo dados da tabela `tb_vencedores`
+--
+
+INSERT INTO `tb_vencedores` (`idVencedores`, `idCandidatos`, `grupo`) VALUES
+(1, 1, 'A'),
+(2, 2, 'A'),
+(3, 13, 'B');
 
 --
 -- Constraints for dumped tables
@@ -1634,6 +1694,12 @@ ALTER TABLE `tb_pontuacao`
   ADD CONSTRAINT `tb_pontuacao_ibfk_1` FOREIGN KEY (`idCandidatos`) REFERENCES `tb_candidatos` (`idCandidatos`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `tb_pontuacao_ibfk_2` FOREIGN KEY (`idFases`) REFERENCES `tb_fases` (`idFases`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `tb_pontuacao_ibfk_3` FOREIGN KEY (`idCriterios`) REFERENCES `tb_criterios` (`idCriterios`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Limitadores para a tabela `tb_vencedores`
+--
+ALTER TABLE `tb_vencedores`
+  ADD CONSTRAINT `tb_vencedores_ibfk_1` FOREIGN KEY (`idCandidatos`) REFERENCES `tb_candidatos` (`idCandidatos`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
